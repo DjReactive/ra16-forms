@@ -1,5 +1,5 @@
 import React from 'react'
-import { defaultItem } from './defines';
+import { defaultItem, getFormatDate } from './defines';
 
 function ItemList({results, onChange, onEditForm, form}) {
   return (
@@ -25,8 +25,8 @@ function ItemList({results, onChange, onEditForm, form}) {
 
 function Item({item, id, highlight, allItems, onChange, onEditForm}) {
   return (
-    <tr colSpan={ !item.distance ? '3' : 'false' } className={highlight && 'choosen'}>
-      <td>{ item.date }</td>
+    <tr colSpan={ !item.distance ? '3' : 'false' } className={highlight ? 'choosen' : undefined}>
+      <td>{ item.date ? getFormatDate(new Date(item.date), true) : 'Results not found' }</td>
       { item.distance && <td>{ item.distance }</td> }
       { item.distance && <td>
         <ItemOptions

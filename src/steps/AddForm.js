@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import { nanoid } from 'nanoid';
-import { defValues } from './defines';
+import { defValues, getFormatDate } from './defines';
 
 function AddForm({form, setForm, onChange}) {
-
+  const current = getFormatDate(new Date())
   const handleCancel = () => setForm(defValues);
   const handleOnChange = evt => {
     evt.preventDefault();
@@ -14,7 +14,6 @@ function AddForm({form, setForm, onChange}) {
       alert('Error!');
       return;
     }
-    // Удалим свойство для корректной работы
     onChange({...form, id: form.id ? form.id : nanoid()}, form.edit && true);
     // Сброс формы
     setForm(defValues);
@@ -29,7 +28,12 @@ function AddForm({form, setForm, onChange}) {
           <td></td>
         </tr>
         <tr>
-          <td><input type="date" id="date" value={form.date} onChange={handleOnChange} /></td>
+          <td><input
+            type="date"
+            max={current}
+            id="date"
+            value={form.date}
+            onChange={handleOnChange} /></td>
           <td>
             <input
               type="number"
